@@ -1,2 +1,6 @@
 .vscode
 .exe
+.aux
+.log
+.synctex.gz
+

@@ -1,8 +1,47 @@
 \documentclass[UTF8]{ctexart}
+\usepackage{amsmath,amsfonts}
+\usepackage{enumerate}
     \title{中国剩余定理学习笔记}
     \author{beck}
     \date{\today}
 \begin{document}
 \maketitle
-
+\section{形式描述}
+中国剩余定理，又称中国余数定理，是数论中的一个关于一元线性同余方程组的定理，说明了一元线性同余方程组有解的准则以及求解方法。也称为孙子定理，古有“韩信点兵”、“孙子定理”、“求一术”（宋沈括）、“鬼谷算”（宋周密）、“隔墙算”（宋 周密）、“剪管术”（宋杨辉）、“秦王暗点兵”、“物不知数”之名。
+用现代数学的语言来说明的话，中国剩余定理给出了以下的一元线性同余方程组：
+\[
+    (S):\quad
+    \begin{cases}
+        \begin{aligned}
+            x & \equiv a_1 \;(\bmod\;m_1) \\
+            x & \equiv a_2 \;(\bmod\;m_2) \\
+            & \vdots \\
+            x & \equiv a_n \;(\bmod\;m_n)
+        \end{aligned}
+    \end{cases}
+\]
+有解的判定条件，并用构造法给出了在有解情况下解的具体形式。
+中国剩余定理说明：假设整数$m_1,m_2,\ldots,m_n$其中任两数互质，则对任意的整数：$a_1,a_2,\ldots,a_n$，方程组$(S)$有解，并且通解可以用如下方式构造得到：
+\begin{enumerate}[1.]
+    \item 设$M = m_1 \times m_2 \times \ldots \times m_n = {\displaystyle \prod_{i=1}^n m_i}$是整数$m_1,m_2,\ldots,m_n$的乘积，并设$M_i=M/m_i$，$\forall i \in \left\{1,2,\ldots,n\right\}$，即$M_i$是除了$m_i$以外的$n - 1$个整数的乘积。
+    \item 设$t_i = M_i^{-1}$为$M_i$模$m_i$的数论倒数：$t_iM_i \equiv 1\;(\bmod\;m_i)$，$\forall i \in \left\{1,2,\ldots,n\right\}.$
+    \item 方程组$(S)$的通解形式为：$x = a_1t_1M_1 + a_2t_2M_2 + \ldots + a_nt_nM_n + kM = kM + {\displaystyle \sum_{i=1}^n a_it_iM_i}$，$k \in \mathbb{Z}.$在模$M$的意义下，方程组$(S)$只有一个解：$x = {\displaystyle \sum_{i=1}^n a_it_iM_i}.$
+\end{enumerate}
+\subsection{证明}
+从假设可知，对任何$i \in \left\{1,2,\ldots,n\right\}$，由于$\forall j \in \left\{1,2,\ldots,n\right\}$，$j \neq i$，$\gcd(m_i,m_j) = 1$，所以$\gcd(m_i,M_i) = 1.$这说明存在整数$t_i$使得$t_iM_i \equiv 1 \;(\bmod\;m_i).$这样的$t_i$叫做$M_i$模$m_i$的数论倒数。考察乘积$a_it_iM_i$可知：
+\[
+\begin{aligned}
+    & a_it_iM_i \equiv a_i \cdot 1 = a_i \;(\bmod\;m_i), \\
+    & \forall j \in \left\{1,2,\ldots,n\right\}, j \neq i, a_jt_jM_j \equiv 0 \;(\bmod\;m_i).
+\end{aligned}
+\]
+所以$x = a_1t_1M_1 + a_2t_2M_2 + \ldots + a_nt_nM_n$满足：
+\[ \forall i \in \left\{1,2,\ldots,n\right\}, x = a_it_iM_i + {\displaystyle \sum_{j \neq i} a_jt_jM_j} \equiv a_i + {\displaystyle \sum_{j \neq i} 0 = a_i \;(\bmod\;m_i).} \]
+这说明$x$就是方程组$(S)$的一个解。
+另外，假设$x_1$和$x_2$都是方程组$(S)$的解，那么：
+\[ \forall i \in \left\{1,2,\ldots,n\right\}, x_1 - x_2 \equiv 0 \;(\bmod\;m_i). \]
+而$m_1,m_2,\ldots,m_n$两两互质，这说明$M = {\displaystyle \prod_{i=1}^n m_i}$整除$x_1 - x_2.$所以方程组$(S)$的任何两个解之间必然相差$M$的整数倍。而另一方面，$x = a_1t_1M_1 + a_2t_2M_2 + \ldots + a_nt_nM_n$是一个解，同时所有形式为：
+\[ a_1t_1M_1 + a_2t_2M_2 + \ldots + a_nt_nM_n + kM = kM + {\displaystyle \sum_{i=1}^n a_it_iM_i,\; k \in \mathbb{Z}} \]
+的整数也是方程组$(S)$的解。所以方程组$(S)$所有的解的集合就是：
+\[ \left\{kM + {\displaystyle \sum_{i=1}^n a_it_iM_i\;;\quad k \in \mathbb{Z}}\right\} \]
 \end{document}

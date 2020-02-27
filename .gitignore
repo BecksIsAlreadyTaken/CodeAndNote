@@ -1,6 +1,8 @@
 .vscode
-.exe
-.aux
-.log
-.synctex.gz
+*.exe
 
+# latex
+*.aux
+*.log
+*.synctex.gz
+*.synctex

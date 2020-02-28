@@ -6,3 +6,8 @@
 *.log
 *.synctex.gz
 *.synctex
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.tex.*

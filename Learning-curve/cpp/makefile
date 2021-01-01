@@ -4,5 +4,5 @@ test: test.o
 	$(CXX) $(CXXFLAGS) -o test test.o
 test.o: test.cpp
 	$(CXX) $(CXXFLAGS) -c test.cpp
-clean: 
+clean:
 	rm test *.o

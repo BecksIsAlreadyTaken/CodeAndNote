@@ -11,3 +11,5 @@
 *.bcf
 *.run.xml
 *.tex.*
+old_permissions.txt
+.prettierrc

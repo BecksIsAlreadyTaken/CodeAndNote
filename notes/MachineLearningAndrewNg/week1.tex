@@ -1,0 +1,56 @@
+\documentclass[UTF8]{ctexart}
+\usepackage{enumerate}
+\usepackage{amsmath,amsfonts}
+\begin{document}
+\title{Machine Learning Notes}
+\author{beck}
+\maketitle
+\vfill
+\clearpage
+\section*{Week1}
+\begin{enumerate}
+    \item Classification problem: discrete valued output. ($0,1,2\ldots$)
+    \item Regression problem: to predict a continuous valued output.
+    \item Supervised learning: w/ correct answer.
+    \item Unsupervised learning: w/o correct answer, to find structure in data.
+    \item Linear regression: fit a straight line.
+    \item Hypothesis function: maps input $x$ to output $y$.
+          \[
+              H(x) = y
+          \]
+    \item Cost function: choose model parameters $\theta_i$.
+          \[
+              J(\theta_0, \theta_1, \ldots, \theta_i)\; (i = 0, 1, \ldots)
+          \]
+    \item Linear regression cost function: mean squared error(MSE).
+          \[
+              J(\theta_i) = \frac{1}{m} \sum_{i=1}^{m} (h(x_i) - y_i)^2
+          \]
+    \item Contour plots: 等高线图
+    \item Converge/Diverge: 收敛/发散
+    \item Gradient descent algorithm: minimize cost function.
+          \[
+              \begin{aligned}
+                   & repeat\; until\; convergence\; \{                                                                      \\
+                   & \theta_j = \theta_j - \alpha \frac{\partial}{\partial\theta_j} J(\theta_0, \theta_1, \ldots, \theta_j) \\
+                  \}
+              \end{aligned}
+          \]
+    \item Gradient descent simultaneous update:
+          \[
+              \begin{aligned}
+                   & temp0 = \theta_0 - \alpha \frac{\partial}{\partial\theta_0} J(\theta_0, \theta_1, \ldots, \theta_j) \\
+                   & temp1 = \theta_1 - \alpha \frac{\partial}{\partial\theta_1} J(\theta_0, \theta_1, \ldots, \theta_j) \\
+                   & \ldots                                                                                              \\
+                   & tempj = \theta_j - \alpha \frac{\partial}{\partial\theta_j} J(\theta_0, \theta_1, \ldots, \theta_j) \\
+                   & \theta_0 = temp0                                                                                    \\
+                   & \theta_1 = temp1                                                                                    \\
+                   & \ldots                                                                                              \\
+                   & \theta_j = tempj                                                                                    \\
+              \end{aligned}
+          \]
+    \item No need to decrease $\alpha$ over time, because gradient descent will automatically take smaller steps. ($|\frac{\partial}{\partial\theta}J(\theta)|$ decreases as approaching local minimum, and finally turn $0$)
+    \item Batch gradient descent: each step of gradient descent uses all the traning examples.
+    \item For the specific choice of cost function $J(\theta)$ used in linear regression, there are no local optima (other than the global optimum) (optimum, plural noun: optima)
+\end{enumerate}
+\end{document}

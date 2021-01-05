@@ -1,0 +1,9 @@
+1.python list negative index
+index 相当于插在元素之间的指针（在它所指元素之前） 比如x=[0, 1, 2, 3, 4]
+print(x[1:2]) 得到 [1]
+print(x[0:len(x)]) 得到 [0, 1, 2, 3, 4]
+
+2.语句结束不用写分号
+
+3. # A slice of an array is a view into the same data, so modifying it
+   # will modify the original array.

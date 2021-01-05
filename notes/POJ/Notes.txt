@@ -1,0 +1,1 @@
+1. POJ 不支持C++ 11，eg: stoi(),atoi(),to_string()

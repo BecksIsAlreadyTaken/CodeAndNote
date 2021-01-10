@@ -24,7 +24,7 @@
           \]
     \item Linear regression cost function: mean squared error(MSE).
           \[
-              J(\theta_i) = \frac{1}{m} \sum_{i=1}^{m} (h(x_i) - y_i)^2
+              J(\theta_i) = \frac{1}{2m} \sum_{i=1}^{m} (h(x_i) - y_i)^2
           \]
     \item Contour plots: 等高线图
     \item Converge/Diverge: 收敛/发散
@@ -52,5 +52,44 @@
     \item No need to decrease $\alpha$ over time, because gradient descent will automatically take smaller steps. ($|\frac{\partial}{\partial\theta}J(\theta)|$ decreases as approaching local minimum, and finally turn $0$)
     \item Batch gradient descent: each step of gradient descent uses all the traning examples.
     \item For the specific choice of cost function $J(\theta)$ used in linear regression, there are no local optima (other than the global optimum) (optimum, plural noun: optima)
+    \item Multivariate linear regression: n features
+          \[
+              \begin{aligned}
+                  H_\theta(X) & = \theta_0 + \theta_1 x_1 + \ldots + \theta_n x_n \\
+                              & = \theta^{T}X                                     \\
+                              & =
+                  \begin{bmatrix}
+                      \theta_0 & \theta_1 & \ldots & \theta_n
+                  \end{bmatrix}
+                  \begin{bmatrix}
+                      x_0    \\
+                      x_1    \\
+                      \vdots \\
+                      x_n
+                  \end{bmatrix}
+                  (x_0 = 1)
+              \end{aligned}
+          \]
+    \item Gradient descent with multiple features:
+          \[
+              \theta_j = \theta_j - \alpha \frac{1}{m} \sum{i=1}^{m} (h_\theta(x^{(i)}) - y^{(i)}) x_j^{(i)}
+          \]
+    \item Feature scaling: mean normalization(均值归一化), replace $x_i$ with $\frac{x_i-\mu}{\sigma}$ or $\frac{x_i-\mu}{S}$ where $S$ is the scale of data.($S = Max - Min$)
+    \item Gradient descent should decrease after every iteration, if not, consider using smaller $\alpha$
+    \item Polynomial regression
+    \item Normal equation:
+          no need to choose $\alpha$, no need to iterate, slow if $n$ is very large.(e.g.$n = 100000$); \\
+          When $X^{T}X$ is non-invertable/singular/degenerate, use pseudo invertion.
+          \[
+              \Bigg\{
+              \begin{aligned}
+                   & redundant\; features:\;            & linearly\; dependent        \\
+                   & too\; many\; features(m \leq n):\; & use\; regularization\; or\; \\
+                   &                                    & delete\; some\; features\;  \\
+              \end{aligned}
+          \]
+          \[
+              \theta = (X^{T}X)^{-1}X^{T}y
+          \]
 \end{enumerate}
 \end{document}

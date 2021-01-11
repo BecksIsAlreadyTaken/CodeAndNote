@@ -1,74 +1,79 @@
 #include <algorithm>
 #include <iostream>
+#include <vector>
 using namespace std;
-int input[1000][2];
-int width, arg1, arg2;
-int cnt, length;
+#define size 1100
 struct node {
     int index;
     int value;
-} output[8000];
-int absolute(int a) { return a > 0 ? a : -a; };
-int compareIndex(node a, node b) { return a.index < b.index; }
-int getArg(int index) {
-    int i = 0;
-    int c = 0;
-    while (i < index) i += input[c++][1];
-    return input[c - 1][0];
+} output[size * 8];
+int input[size][2];  // store input arg
+int width;
+int length;  // total pixel count
+int cnt;     // total pair count
+int cmp(node, node);
+int computeMax(int);
+int main() {
+    while (scanf("%d", &width) && width > 0) {
+        length = 0;
+        cnt = 0;
+        int v, c;
+        while (scanf("%d%d", &v, &c) && c > 0) {  // collect input arg
+            input[cnt][0] = v;
+            input[cnt][1] = c;
+            cnt++;
+            length += c;
+        }
+        printf("%d\n", width);
+        int i = 0, l = 0;
+        for (int c = 0; c <= cnt;
+             c++) {  // 枚举每个连续段的起始点和终止点周围的8个
+            int row = i / width;
+            int column = i % width;
+            for (int j = row - 1; j <= row + 1; j++) {
+                for (int k = column - 1; k <= column + 1; k++) {
+                    int tempi = j * width + k;
+                    if (j < 0 || k < 0 || k >= width || tempi >= length)
+                        continue;
+                    output[l].index = tempi;
+                    output[l].value = computeMax(tempi);
+                    l++;
+                }
+            }
+            i += input[c][1];
+        }
+        sort(output, output + l, cmp);
+        node temp = output[0];
+        for (int i = 0; i < l; i++) {
+            if (output[i].value == temp.value) continue;
+            printf("%d %d\n", temp.value, output[i].index - temp.index);
+            temp = output[i];
+        }
+        printf("%d %d\n", temp.value, length - temp.index);
+        printf("0 0\n");
+    }
+    printf("0\n");
+    return 0;
 }
-int getMax(int index) {
-    int arg1 = getArg(index);
-    int max = 0;
-    int row = (index - 1) / width;
-    int column = (index - 1) % width;
+int cmp(node a, node b) { return a.index < b.index; }
+int getValue(int index) {
+    int i = 0, j = 0;
+    while (j <= index) j += input[i++][1];
+    return input[i - 1][0];
+}
+int computeMax(int index) {
+    int row = index / width;
+    int column = index % width;
+    int max = 0, self = getValue(index);
     for (int i = row - 1; i <= row + 1; i++) {
         for (int j = column - 1; j <= column + 1; j++) {
-            int pos = i * width + j;
-            if (i < 0 || j < 0 || j >= width || pos >= length ||
-                pos == index - 1)
+            int tempi = i * width + j;
+            if (i < 0 || j < 0 || j >= width || tempi >= length ||
+                tempi == index)
                 continue;
-            int arg = getArg(pos + 1);
-            if (absolute(arg - arg1) > max) max = absolute(arg - arg1);
+            int temp = getValue(tempi);
+            if (abs(temp - self) > max) max = abs(temp - self);
         }
     }
     return max;
-}
-int main() {
-    do {
-        cin >> width;
-        cnt = 0;
-        length = 0;
-        do {
-            cin >> arg1 >> arg2;
-            input[cnt][0] = arg1;
-            input[cnt][1] = arg2;
-            cnt++;
-            length += arg2;
-        } while (arg1 != 0 && arg2 != 0);
-        cout << width << endl;
-        int pos = 1, k = 0;
-        for (int c = 0; c <= cnt; c++) {
-            int row = (pos - 1) / width;
-            int col = (pos - 1) % width;
-            for (int i = row - 1; i <= row + 1; i++)
-                for (int j = col - 1; j <= col + 1; j++) {
-                    int p = i * width + j;
-                    if (i < 0 || j < 0 || j >= width || p >= length) continue;
-                    output[k].index = p + 1;
-                    output[k++].value = getMax(p + 1);
-                }
-            pos += input[c][1];  //跳跃到下一连续段起始点
-        }
-        sort(output, output + k, compareIndex);
-        node temp = output[0];
-        for (int i = 0; i < k; i++) {
-            if (output[i].value == temp.value) continue;
-            cout << temp.value << " " << output[i].index - temp.index << endl;
-            temp = output[i];
-        }
-        cout << temp.value << " " << length - temp.index + 1 << endl;
-        cout << 0 << " " << 0 << endl;
-    } while (width != 0);
-    cout << 0 << endl;
-    return 0;
 }
